@@ -13,9 +13,17 @@
 
 <body>
 
-    <?php
-    // write your FizzBuzz program here
-    ?>
+    <?php for ($i = 1; $i <= 100; $i++): ?>
+        <?php if ($i % 3 === 0 && $i % 5 === 0): ?>
+            <p><strong>FizzBuzz</strong></p>
+        <?php elseif ($i % 3 === 0): ?>
+            <p><strong>Fizz</strong></p>
+        <?php elseif ($i % 5 === 0): ?>
+            <p><strong>Buzz</strong></p>
+        <?php else: ?>
+            <p><?= $i ?></p>
+        <?php endif; ?>
+    <?php endfor; ?>
 
 </body>
 

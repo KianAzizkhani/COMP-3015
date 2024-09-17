@@ -14,8 +14,14 @@
  *                empty strings or null values for their names and dates
  */
 function filterInvalidShows(array $shows): array {
-    // TODO
-    return [];
+    $filteredShows = [];
+
+    foreach($shows as $showName => $showDates) {
+        if(!empty($showName) && !empty($showDates)) {
+            $filteredShows[$showName] = $showDates;
+        }
+    }
+    return $filteredShows;
 }
 
 /**
@@ -25,11 +31,18 @@ function filterInvalidShows(array $shows): array {
  * @return void
  */
 function displayShowInfo(array $shows): void {
+    echo "<h1>Shows</h1>";
+    foreach ($shows as $showName => $showDates) {
+        echo "<p><strong>$showName</strong>: $showDates</p>";
+    }
 }
 
 // An associative array of show names and associated dates when the shows aired
 $shows = [
     // Add some more shows you like to the array
+    'Suits' => 'June 23, 2011 - September 25, 2019',
+    'Prison Break' => 'August 29, 2005 - May 30, 2017',
+    'Friends' => 'September 22, 1994 - May 6, 2004',
     'Curb Your Enthusiasm' => 'October 15th, 2000 - Current',
     'Invalid data1' => '',
     'Invalid data2' => null,
@@ -51,7 +64,8 @@ $shows = [
 <body>
 
     <?php
-    // Here, you should call your functions in order to filter and then output the show info.
+    $filteredShows = filterInvalidShows($shows);
+    displayShowInfo($filteredShows);
     ?>
 
 </body>
