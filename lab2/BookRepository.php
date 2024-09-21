@@ -52,7 +52,9 @@ class BookRepository
      */
     public function saveBook(Book $book): void
     {
-        // TODO
+        $allBooks = $this->getAllBooks();
+        $allBooks[] = $book;
+        file_put_contents($this->filename, json_encode($allBooks, JSON_PRETTY_PRINT));
     }
 
     /**
@@ -64,7 +66,13 @@ class BookRepository
      */
     public function getBookByISBN(string $isbn): Book|null
     {
-        // TODO
+        $allBooks = $this->getAllBooks();
+        foreach ($allBooks as $book) {
+            if($book->getInternationalStandardBookNumber() === $isbn) {
+                return $book;
+            }
+        }
+        return null;
     }
 
     /**
@@ -76,7 +84,13 @@ class BookRepository
      */
     public function getBookByTitle(string $title): Book|null
     {
-        // TODO
+        $allBooks = $this->getAllBooks();
+        foreach ($allBooks as $book) {
+            if($book->getName() === $title) {
+                return $book;
+            }
+        }
+        return null;
     }
 
     /**
@@ -87,7 +101,14 @@ class BookRepository
      */
     public function updateBook(string $isbn, Book $newBook): void
     {
-        // TODO
+        $allBooks = $this->getAllBooks();
+        for ($i = 0; $i < count($allBooks); $i++) {
+            if($allBooks[$i]->getInternationalStandardBookNumber() === $isbn) {
+                $allBooks[$i] = $newBook;
+            }
+        }
+
+        file_put_contents($this->filename, json_encode(array_values($allBooks), JSON_PRETTY_PRINT));
     }
 
     /**
@@ -97,7 +118,14 @@ class BookRepository
      */
     public function deleteBookByISBN(string $isbn): void
     {
-        // TODO
+        $allBooks = $this->getAllBooks();
+        for ($i = 0; $i < count($allBooks); $i++) {
+            if($allBooks[$i]->getInternationalStandardBookNumber() === $isbn) {
+                unset($allBooks[$i]);
+                break;
+            }
+        }
+        file_put_contents($this->filename, json_encode(array_values($allBooks), JSON_PRETTY_PRINT));
     }
 
 }

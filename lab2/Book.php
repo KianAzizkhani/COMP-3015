@@ -1,6 +1,6 @@
 <?php
 
-class Book
+class Book implements JsonSerializable
 {
     private string $name;
     private string $authorName;
@@ -78,4 +78,12 @@ class Book
         return $this;
     }
 
+    public function jsonSerialize(): array
+    {
+        return [
+            'name' => $this->name,
+            'authorName' => $this->authorName,
+            'isbn' => $this->isbn
+        ];
+    }
 }
